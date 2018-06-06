@@ -1,0 +1,41 @@
+body {
+  padding-left: 100px;
+  padding-right: 100px;
+}
+
+ul {
+  list-style-type: none;
+   margin: 0;
+   padding: 0;
+   overflow: hidden;
+   background-color: #FF6600;
+}
+
+li {
+    float: left;
+}
+
+li a {
+    display: block;
+    color: black;
+    text-align: center;
+    padding: 5px 7px;
+    text-decoration: none;
+    font-family: 'Tauri', sans-serif;
+}
+
+#title {
+  font-weight: bold;
+}
+
+#link {
+  background-color: #F6F6EF;
+  padding: 5px 7px;
+}
+
+#link a {
+  text-decoration: none;
+  font-family: 'Tauri', sans-serif;
+  font-size: 12px;
+  color: black;
+}
