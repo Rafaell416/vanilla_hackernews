@@ -13,7 +13,7 @@ variables:
   GITLAB_VHN_TEST_IMAGE: registry.gitlab.com/rafaell416/vanilla-hackernews:test
   GITLAB_VHN_STAGIN_IMAGE: registry.gitlab.com/rafaell416/vanilla-hackernews:latest
   GITLAB_DOCKER_LOGIN: docker login registry.gitlab.com -u gitlab-ci-token -p $ACCESS_TOKEN
-  HEROKU_DOCKER_LOGIN: docker login --username=_ --password=$HEROKU_API_KEY registry.heroku.com
+  HEROKU_DOCKER_LOGIN: docker login -u _ -p $HEROKU_AUTH_TOKEN registry.heroku.com
   HEROKU_VHN_STAGIN_IMAGE: registry.heroku.com/vanilla-hackernews/web:latest
 
 build:
