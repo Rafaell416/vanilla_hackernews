@@ -1,31 +1,47 @@
+image: docker:latest
+
+services:
+  - docker:dind
+
 stages:
   - build
   - test
+  - stagin
   - deploy
 
+variables:
+  GITLAB_VHN_TEST_IMAGE: registry.gitlab.com/rafaell416/vanilla-hackernew:test
+  GITLAB_VHN_STAGIN_IMAGE: registry.gitlab.com/rafaell416/vanilla-hackernew:latest
+
+  GITLAB_DOCKER_LOGIN: docker login -u gitlab-ci-token -p $VANILLA_HN_DEPLOY_TOKEN registry.gitlab.com
+  HEROKU_DOCKER_LOGIN: - docker login --email=_ --username=_ --password=$HEROKU_API_KEY registry.heroku.com
+
+  HEROKU_VHN_STAGIN_IMAGE: registry.heroku.com/vanilla-hackernews/web:latest
+
 build:
-  image: docker:latest
-  services:
-    - docker:dind
   stage: build
   script:
-    - docker build -t vanilla_hackernews .
+    - $GITLAB_DOCKER_LOGIN
+    - docker build -t $GITLAB_VHN_TEST_IMAGE .
+    - docker push GITLAB_VHN_TEST_IMAGE
 
 test:
-  image: docker:latest
-  services:
-    - docker:dind
   stage: test
   script:
-    - docker run vanilla_hackernews yarn test
+    - $GITLAB_DOCKER_LOGIN
+    - docker run $GITLAB_VHN_TEST_IMAGE yarn test
+
+stagin:
+  stage: stagin
+  script:
+    - $GITLAB_DOCKER_LOGIN
+    - docker pull $GITLAB_VHN_TEST_IMAGE
+    - docker tag $GITLAB_VHN_TEST_IMAGE $GITLAB_VHN_STAGIN_IMAGE
+    - docker push $GITLAB_VHN_STAGIN_IMAGE
 
 deploy:
   stage: deploy
-  services:
-    - docker:dind
   script:
-    - docker login --email=_ --username=_ --password=$HEROKU_API_KEY registry.heroku.com
-    - docker tag registry.gitlab.com/Rafaell416/vanilla-hackernew:latest registry.heroku.com/Rafaell416/vanilla-hackernew:latest
-    - docker push registry.heroku.com/Rafaell416/vanilla-hackernew:latest
-  only:
-    - master
+    - $HEROKU_DOCKER_LOGIN
+    - docker tag $GITLAB_VHN_STAGIN_IMAGE $HEROKU_VHN_STAGIN_IMAGE
+    - docker push $HEROKU_VHN_STAGIN_IMAGE
