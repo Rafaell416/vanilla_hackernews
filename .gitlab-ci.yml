@@ -21,7 +21,7 @@ build:
   script:
     - $GITLAB_DOCKER_LOGIN
     - docker build -t $GITLAB_VHN_TEST_IMAGE .
-    - docker push GITLAB_VHN_TEST_IMAGE
+    - docker push $GITLAB_VHN_TEST_IMAGE
 
 test:
   stage: test
