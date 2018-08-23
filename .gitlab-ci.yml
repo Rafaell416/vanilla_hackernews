@@ -45,5 +45,6 @@ deploy:
     - $HEROKU_DOCKER_LOGIN
     - docker tag $GITLAB_VHN_STAGIN_IMAGE $HEROKU_VHN_STAGIN_IMAGE
     - docker push $HEROKU_VHN_STAGIN_IMAGE
+    - apt-get install curl
     - curl https://cli-assets.heroku.com/install.sh | sh
     - heroku container:release web --app vanilla-hackernews
