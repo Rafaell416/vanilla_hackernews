@@ -12,7 +12,7 @@ stages:
 variables:
   GITLAB_VHN_TEST_IMAGE: registry.gitlab.com/rafaell416/vanilla-hackernew:test
   GITLAB_VHN_STAGIN_IMAGE: registry.gitlab.com/rafaell416/vanilla-hackernew:latest
-  GITLAB_DOCKER_LOGIN: docker login -u gitlab+deploy-token-12834 -p $VANILLA_HN_DEPLOY_TOKEN registry.gitlab.com
+  GITLAB_DOCKER_LOGIN: docker login -u gitlab-ci-token -p $VANILLA_HN_DEPLOY_TOKEN registry.gitlab.com
   HEROKU_DOCKER_LOGIN: docker login --email=_ --username=_ --password=$HEROKU_API_KEY registry.heroku.com
   HEROKU_VHN_STAGIN_IMAGE: registry.heroku.com/vanilla-hackernews/web:latest
 
