@@ -1,0 +1,28 @@
+stages:
+  - build
+  - test
+  - deploy
+
+build:
+  image: docker:latest
+  stage: build
+  services:
+    - docker:dind
+  script:
+    - docker build -t vanilla_hackernews .
+
+test:
+  stage: test
+  script:
+    - docker run vanilla_hackernews yarn test
+
+deploy:
+  stage: deploy
+  services:
+    - docker:dind
+  script:
+    - docker login --email=_ --username=_ --password=$HEROKU_API_KEY registry.heroku.com
+    - docker tag registry.gitlab.com/Rafaell416/vanilla-hackernew:latest registry.heroku.com/Rafaell416/vanilla-hackernew:latest
+    - docker push registry.heroku.com/Rafaell416/vanilla-hackernew:latest
+  only:
+    - master

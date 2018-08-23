@@ -12,3 +12,5 @@ app.listen(port, (err) => {
   if (err) {console.log(err)}
   console.log('server is runnig ok in port' + port)
 })
+
+module.exports = app
