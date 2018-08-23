@@ -5,6 +5,8 @@ stages:
 
 build:
   image: docker:latest
+  services:
+    - docker:dind
   stage: build
   script:
     - docker build -t vanilla_hackernews .
