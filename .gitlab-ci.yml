@@ -40,6 +40,8 @@ stagin:
 deploy:
   stage: deploy
   script:
+    - $GITLAB_DOCKER_LOGIN
+    - docker pull $GITLAB_VHN_STAGIN_IMAGE
     - $HEROKU_DOCKER_LOGIN
     - docker tag $GITLAB_VHN_STAGIN_IMAGE $HEROKU_VHN_STAGIN_IMAGE
     - docker push $HEROKU_VHN_STAGIN_IMAGE
