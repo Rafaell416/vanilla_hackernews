@@ -1,6 +1,6 @@
 const express = require('express')
 const app = express()
-const port = 3000
+const port = process.env.PORT
 
 app.use(express.static('public'))
 
@@ -10,7 +10,7 @@ app.get('/', (req, res) => {
 
 app.listen(port, (err) => {
   if (err) {console.log(err)}
-  console.log('server is runnig ok in port' + port)
+  console.log('server is runnig ok in port ' + port)
 })
 
 module.exports = app
